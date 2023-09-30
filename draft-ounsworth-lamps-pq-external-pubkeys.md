@@ -1,7 +1,7 @@
 ---
 title: External Keys For Use In Internet X.509 Certificates
 abbrev: External X.509 Keys
-docname: draft-ounsworth-pq-external-pubkeys-latest
+docname: draft-ounsworth-lamps-pq-external-pubkeys-latest
 
 
 # <!-- stand_alone: true -->
