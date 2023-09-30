@@ -1,17 +1,27 @@
 ---
-title: External Keys And Signatures For Use In Internet PKI
-abbrev: External keys and sigs
-# <!-- EDNOTE: Edits the draft name -->
-docname: draft-ounsworth-pq-external-pubkeys-00
-# <!-- date: 2012-01-13 -->
-# <!-- date: 2012-01 -->
-# <!-- date: 2012 -->
+title: External Keys For Use In Internet X.509 Certificates
+abbrev: External X.509 Keys
+docname: draft-ounsworth-pq-external-pubkeys-latest
+
 
 # <!-- stand_alone: true -->
 area: Security
 wg: LAMPS
 kw: Internet-Draft
 cat: std
+submissiontype: IETF  # also: "independent", "IAB", or "IRTF"
+consensus: true
+v: 3
+keyword:
+ - X.509
+ - External Public Key
+venue:
+  group: "Limited Additional Mechanisms for PKIX and SMIME (lamps)"
+  type: "Working Group"
+  mail: "spasm@ietf.org"
+  arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
+  github: "EntrustCorporation/draft-pq-external-pubkeys"
+  latest: ""
 
 coding: us-ascii
 pi:    # can use array (if all yes) or hash here
@@ -32,7 +42,7 @@ author:
       email: mike.ounsworth@entrust.com
 
     -
-      name: Markku-Juhani O. Saarinen 
+      name: Markku-Juhani O. Saarinen
       org: PQShield
       email: mjos@pqshield.com
 
@@ -56,9 +66,9 @@ informative:
 
 updates:
   RFC5280:
-  
+
 --- abstract
-Many of the post quantum cryptographic algorithms have either large public keys or signatures. In the interest of reducing bandwidth of transitting X.509 certificates, this document defines new public key and signature algorithms for referencing external public key and signature data by hash, URL, etc. This mechanism is designed to mimic the behaviour of an Authority Information Access extension.  
+Many of the post quantum cryptographic algorithms have either large public keys or signatures. In the interest of reducing bandwidth of transitting X.509 certificates, this document defines new public key and signature algorithms for referencing external public key and signature data by hash, URL, etc. This mechanism is designed to mimic the behaviour of an Authority Information Access extension.
 
 <!-- End of Abstract -->
 
@@ -73,7 +83,7 @@ Many of the post quantum cryptographic algorithms have either large public keys 
 The id-external-value algorithm identifier is used for identifying a public key or signature which is provided as a reference to external data.
 
 ~~~
-id-external-value ::= < OID >
+id-external-value ::= < TBDOID >
 ~~~
 
 EDNOTE: for prototyping purposes, `id-external-value ::= 1.3.6.1.4.1.22554.4.2`
@@ -97,12 +107,6 @@ When used with a public key, algorithm parameters for id-external-value are abse
 
 When ExternalValue is placed into a SubjectPublicKeyInfo.subjectPublicKey, the ExternalValue.location MUST refer to a DER-encoded SubjectPublicKeyInfo, which MAY be base64 encoded as per [RFC4648] for easier transport over text protocols.
 
-## External Signature
-
-When used with a signatureAlgorithm, algorithm parameters are to contain the AlgorithmIdentifier of the signature that is being externalized.
-
-When ExternalValue is placed into a signatureValue, the location MUST refer to the BIT STRING of a signatureValue, which MAY be base64 encoded as per [RFC4648] for easier transport over text protocols.
-
 
 
 
@@ -110,8 +114,20 @@ When ExternalValue is placed into a signatureValue, the location MUST refer to t
 
 
 # IANA Considerations {#sec-iana}
-The ASN.1 module OID is TBD.  The id-alg-composite OID is to be assigned by IANA. 
+##  Object Identifier Allocations
 
+###  Module Registration - SMI Security for PKIX Module Identifier
+
+-  Decimal: IANA Assigned - **Replace TBDMOD**
+-  Description: EXTERNAL-PUBKEY-2023 - id-mod-external-pubkey
+-  References: This Document
+
+###  Object Identifier Registrations - SMI Security for PKIX Algorithms
+
+- Attest Statement
+  - Decimal: IANA Assigned - Replace **TBDOID**
+  - Description: id-external-value
+  - References: This Document
 
 <!-- End of IANA Considerations section -->
 
@@ -133,18 +149,24 @@ Not having the public key in Certificate Transparency (CT) logs could make it su
 
 ## ASN.1 Module
 
+~~~
+{::include EXTERNAL-PUBKEY-2023.asn}
+~~~
+
+## Samples
+
+TODO
+
 ## Intellectual Property Considerations
 
-The following IPR Disclosure relates to this draft:
-
-https://datatracker.ietf.org/ipr/3588/
+None.
 
 
 
 # Contributors and Acknowledgements
+
 This document incorporates contributions and comments from a large group of experts. The Editors would especially like to acknowledge the expertise and tireless dedication of the following people, who attended many long meetings and generated millions of bytes of electronic mail and VOIP traffic over the past year in pursuit of this document:
 
-John Gray (Entrust),
 Serge Mister (Entrust).
 
 We are grateful to all, including any contributors who may have
@@ -155,7 +177,7 @@ This document borrows text from similar documents, including those referenced be
 
 ## Making contributions
 
-Additional contributions to this draft are weclome. Please see the working copy of this draft at, as well as open issues at:
+Additional contributions to this draft are welcome. Please see the working copy of this draft at, as well as open issues at:
 
 https://github.com/EntrustCorporation/draft-ounsworth-pq-external-keys
 
