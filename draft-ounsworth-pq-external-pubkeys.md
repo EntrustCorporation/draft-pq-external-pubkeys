@@ -83,8 +83,8 @@ Many of the post quantum cryptographic algorithms have either large public keys 
 The id-external-value algorithm identifier is used for identifying a public key or signature which is provided as a reference to external data.
 
 ~~~
-id-external-value OBJECT IDENTIFIER  ::=  { iso(1) 
-            identified-organization(3) dod(6) internet(1) 
+id-external-value OBJECT IDENTIFIER  ::=  { iso(1)
+            identified-organization(3) dod(6) internet(1)
             security(5) mechanisms(5) pkix(7) algorithms(6)
             TBDOID }
 ~~~
@@ -160,7 +160,50 @@ Not having the public key in Certificate Transparency (CT) logs could make it su
 
 ## Samples
 
-Here is a complete sample of a self-signed 
+Here is a sample of a Kyber1024 end entity certificate with an external public key. A trust anchor certificate using the algorithm ecdsaWithSHA256 is provided so that the Kyber1024 End Entity certificate can be verified.
+
+This is a modest example demonstrating a 550 byte Kyber1024 certificate and a 2.2 kb external Kyber1024 public key. This "compression" effect will be even more pronounced with algorithms such as Classic McEliece which have public keys in the hundreds of kilobytes; with the external public key mechanism, the size of the certificate remains constant regardless of how large the externalized subject public key is.
+
+End entity Kyber1024 Certificate with `ExternalValue` public key:
+
+~~~
+{::include samples/ee_external_cert.pem}
+~~~
+
+For illustrative purposes, the `SubjectPublicKeyInfo` within the end entity certificate decodes as:
+
+~~~
+subjectPublicKeyInfo SubjectPublicKeyInfo SEQUENCE (2 elem)
+      algorithm AlgorithmIdentifier SEQUENCE (1 elem)
+        algorithm OBJECT IDENTIFIER 1.3.6.1.4.1.22554.4.2 ExternalValue
+      subjectPublicKey BIT STRING (688 bit)
+        SEQUENCE (3 elem)
+          [6] (35 byte) file://local_keyserver/surveyors.db
+          SEQUENCE (1 elem)
+            OBJECT IDENTIFIER 2.16.840.1.101.3.4.2.1 sha-256
+          OCTET STRING (32 byte) E73D4BC89752FD359...
+~~~
+
+The external public key object referenced by the end entity certificate is:
+
+~~~
+{::include samples/ee_key.pem}
+~~~
+
+For illustrative purposes, the key data, which is itself a `SubjectPublicKeyInfo`, decodes as:
+
+~~~
+SEQUENCE (2 elem)
+  SEQUENCE (1 elem)
+    OBJECT IDENTIFIER 1.3.6.1.4.1.22554.5.6.3 Kyber1024
+  BIT STRING (12544 bit) 01101111…
+~~~
+
+The following trust anchor certificate can be used to validate the above end entity certificate.
+
+~~~
+{::include samples/ca_cert.pem}
+~~~
 
 ## Intellectual Property Considerations
 
