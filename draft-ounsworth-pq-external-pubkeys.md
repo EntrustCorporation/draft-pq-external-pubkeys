@@ -83,7 +83,10 @@ Many of the post quantum cryptographic algorithms have either large public keys 
 The id-external-value algorithm identifier is used for identifying a public key or signature which is provided as a reference to external data.
 
 ~~~
-id-external-value ::= < TBDOID >
+id-external-value OBJECT IDENTIFIER  ::=  { iso(1) 
+            identified-organization(3) dod(6) internet(1) 
+            security(5) mechanisms(5) pkix(7) algorithms(6)
+            TBDOID }
 ~~~
 
 EDNOTE: for prototyping purposes, `id-external-value ::= 1.3.6.1.4.1.22554.4.2`
@@ -134,6 +137,8 @@ When ExternalValue is placed into a SubjectPublicKeyInfo.subjectPublicKey, the E
 
 # Security Considerations
 
+TODO -- explain why there is no cryptographic problem doing this
+
 ## CSRs and CT logs
 
 In practice, situations will arise where the ExternalPublicKey.location refers to a location which is not publicly available either because it is in a local keystore, on a private network, or no longer being hosted.
@@ -155,7 +160,7 @@ Not having the public key in Certificate Transparency (CT) logs could make it su
 
 ## Samples
 
-TODO
+Here is a complete sample of a self-signed 
 
 ## Intellectual Property Considerations
 
