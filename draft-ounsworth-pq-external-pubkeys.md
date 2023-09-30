@@ -21,7 +21,7 @@ venue:
   mail: "spasm@ietf.org"
   arch: "https://mailarchive.ietf.org/arch/browse/spasm/"
   github: "EntrustCorporation/draft-pq-external-pubkeys"
-  latest: ""
+  latest: "https://entrustcorporation.github.io/draft-pq-external-pubkeys/draft-ounsworth-pq-external-pubkeys.html"
 
 coding: us-ascii
 pi:    # can use array (if all yes) or hash here
