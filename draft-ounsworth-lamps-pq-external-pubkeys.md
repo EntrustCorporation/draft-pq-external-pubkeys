@@ -68,7 +68,7 @@ updates:
   RFC5280:
 
 --- abstract
-Many of the post quantum cryptographic algorithms have either large public keys or signatures. In the interest of reducing bandwidth of transitting X.509 certificates, this document defines new public key and signature algorithms for referencing external public key and signature data by hash, URL, etc. This mechanism is designed to mimic the behaviour of an Authority Information Access extension.
+Many of the post quantum cryptographic algorithms have large public keys. In the interest of reducing bandwidth of transitting X.509 certificates, this document defines new public key and algorithms for referencing external public key data by hash, and location, for example URL. This mechanism is designed to mimic the behaviour of an Authority Information Access extension.
 
 <!-- End of Abstract -->
 
@@ -137,7 +137,7 @@ When ExternalValue is placed into a SubjectPublicKeyInfo.subjectPublicKey, the E
 
 # Security Considerations
 
-There are no security implications to externalizing a public key from a certificate as described in this draft. It is of course possible for a malicious actor to replace or tamper with the public key data at the referenced location, but since the hash of the public key data is included in the signed certificate, any such tampering will be detected and the certificate verification will fail.
+There are no security implications to externalizing a public key from a certificate as described in this draft. It is of course possible for a malicious actor to replace or tamper with the public key data at the referenced location, but since the hash of the public key data is included in the signed certificate, any such tampering will be detected and the certificate verification will fail. For this reason, external public key data MAY be served over an insecure channel such as HTTP.
 
 ## CSRs and CT logs
 
