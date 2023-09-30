@@ -83,8 +83,8 @@ Many of the post quantum cryptographic algorithms have either large public keys 
 The id-external-value algorithm identifier is used for identifying a public key or signature which is provided as a reference to external data.
 
 ~~~
-id-external-value OBJECT IDENTIFIER  ::=  { iso(1)
-            identified-organization(3) dod(6) internet(1)
+id-external-value OBJECT IDENTIFIER  ::=  { iso(1) 
+            identified-organization(3) dod(6) internet(1) 
             security(5) mechanisms(5) pkix(7) algorithms(6)
             TBDOID }
 ~~~
@@ -102,7 +102,7 @@ ExternalValue ::= SEQUENCE {
 ~~~
 
 
-Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per [RFC4648] if necessary) MUST be verified using hashAlg to match the ExternalPublicKey.hash value.
+Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per [RFC4648] if necessary) MUST be verified using hashAlg to match the `ExternalPublicKey.hash` value.
 
 ## External Public Key
 
@@ -137,7 +137,7 @@ When ExternalValue is placed into a SubjectPublicKeyInfo.subjectPublicKey, the E
 
 # Security Considerations
 
-TODO -- explain why there is no cryptographic problem doing this
+There are no security implications to externalizing a public key from a certificate as described in this draft. It is of course possible for a malicious actor to replace or tamper with the public key data at the referenced location, but since the hash of the public key data is included in the signed certificate, any such tampering will be detected and the certificate verification will fail.
 
 ## CSRs and CT logs
 
@@ -160,7 +160,7 @@ Not having the public key in Certificate Transparency (CT) logs could make it su
 
 ## Samples
 
-Here is a complete sample of a self-signed
+Here is a complete sample of a self-signed 
 
 ## Intellectual Property Considerations
 
