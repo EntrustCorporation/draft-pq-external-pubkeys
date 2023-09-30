@@ -1,0 +1,278 @@
+
+
+
+
+LAMPS                                                       M. Ounsworth
+Internet-Draft                                                   Entrust
+Updates: {"RFC5280"=>nil} (if approved)                M.-J. O. Saarinen
+Intended status: Standards Track                                PQShield
+Expires: 2 April 2024                                            J. Gray
+                                                                 Entrust
+                                                                 D. Hook
+                                                               KeyFactor
+                                                       30 September 2023
+
+
+          External Keys For Use In Internet X.509 Certificates
+               draft-ounsworth-pq-external-pubkeys-latest
+
+Abstract
+
+   Many of the post quantum cryptographic algorithms have either large
+   public keys or signatures.  In the interest of reducing bandwidth of
+   transitting X.509 certificates, this document defines new public key
+   and signature algorithms for referencing external public key and
+   signature data by hash, URL, etc.  This mechanism is designed to
+   mimic the behaviour of an Authority Information Access extension.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   The latest revision of this draft can be found at .  Status
+   information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ounsworth-pq-external-
+   pubkeys/.
+
+   Discussion of this document takes place on the Limited Additional
+   Mechanisms for PKIX and SMIME (lamps) Working Group mailing list
+   (mailto:spasm@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/spasm/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/spasm/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/EntrustCorporation/draft-pq-external-pubkeys.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 2 April 2024.
+
+Copyright Notice
+
+   Copyright (c) 2023 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  External Value
+     2.1.  External Public Key
+   3.  IANA Considerations
+     3.1.  Module Registration - SMI Security for PKIX Module
+           Identifier
+       3.1.1.  Object Identifier Registrations - SMI Security for PKIX
+               Algorithms
+   4.  Security Considerations
+     4.1.  CSRs and CT logs
+   5.  Appendices
+     5.1.  ASN.1 Module
+     5.2.  Samples
+     5.3.  Intellectual Property Considerations
+   6.  Contributors and Acknowledgements
+     6.1.  Making contributions
+   7.  Normative References
+   Authors' Addresses
+
+1.  Introduction
+
+2.  External Value
+
+   The id-external-value algorithm identifier is used for identifying a
+   public key or signature which is provided as a reference to external
+   data.
+
+   id-external-value ::= < TBDOID >
+
+   EDNOTE: for prototyping purposes, id-external-value ::=
+   1.3.6.1.4.1.22554.4.2
+
+   The corresponding subjectPublicKey is the DER encoding of the
+   following structure:
+
+   ExternalValue ::= SEQUENCE {
+     location     GeneralName,
+     hashAlg      AlgorithmIdentifier,
+     hashVal      OCTET STRING
+   }
+
+   Upon retrieval of the referenced data, the hash of the OCTET STRING
+   of the retrieved data (removing base64 encoding as per [RFC4648] if
+   necessary) MUST be verified using hashAlg to match the
+   ExternalPublicKey.hash value.
+
+2.1.  External Public Key
+
+   When used with a public key, algorithm parameters for id-external-
+   value are absent.
+
+   When ExternalValue is placed into a
+   SubjectPublicKeyInfo.subjectPublicKey, the ExternalValue.location
+   MUST refer to a DER-encoded SubjectPublicKeyInfo, which MAY be base64
+   encoded as per [RFC4648] for easier transport over text protocols.
+
+3.  IANA Considerations
+
+   ## Object Identifier Allocations
+
+3.1.  Module Registration - SMI Security for PKIX Module Identifier
+
+   *  Decimal: IANA Assigned - *Replace TBDMOD*
+
+   *  Description: EXTERNAL-PUBKEY-2023 - id-mod-external-pubkey
+
+   *  References: This Document
+
+3.1.1.  Object Identifier Registrations - SMI Security for PKIX
+        Algorithms
+
+   *  Attest Statement
+
+      -  Decimal: IANA Assigned - Replace *TBDOID*
+
+      -  Description: id-external-value
+
+      -  References: This Document
+
+4.  Security Considerations
+
+4.1.  CSRs and CT logs
+
+   In practice, situations will arise where the
+   ExternalPublicKey.location refers to a location which is not publicly
+   available either because it is in a local keystore, on a private
+   network, or no longer being hosted.
+
+   Not having the public key in a certificate signing request (CSR)
+   could make it substantially harder for CAs to perform vetting of the
+   key, for example for cryptographic strength or checking for prior
+   revocation due to key compromise.  A certificate requester MUST make
+   the full public key available to the CA at the time of certificate
+   request either by ensuring that the link in the
+   ExternalPublicKey.location is visible to the CA, or by supplying the
+   full public key to the CA out of band.
+
+   Not having the public key in Certificate Transparency (CT) logs could
+   make it substantially harder for researchers to perform auditing
+   tasks on CT logs.  This may require additional CT mechanisms.
+
+5.  Appendices
+
+5.1.  ASN.1 Module
+
+EXTERNAL-PUBKEY-2023
+           {iso(1) identified-organization(3) dod(6) internet(1) security(5)
+       mechanisms(5) pkix(7) id-mod(0) id-mod-external-pubkey(TBDMOD)}
+
+DEFINITIONS IMPLICIT TAGS ::= BEGIN
+
+EXPORTS ALL;
+
+IMPORTS
+
+Certificate, id-pkix
+ FROM PKIX1Explicit-2009
+     {iso(1) identified-organization(3) dod(6) internet(1) security(5)
+     mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-explicit-02(51)}
+
+
+
+
+END
+
+5.2.  Samples
+
+   TODO
+
+5.3.  Intellectual Property Considerations
+
+   None.
+
+6.  Contributors and Acknowledgements
+
+   This document incorporates contributions and comments from a large
+   group of experts.  The Editors would especially like to acknowledge
+   the expertise and tireless dedication of the following people, who
+   attended many long meetings and generated millions of bytes of
+   electronic mail and VOIP traffic over the past year in pursuit of
+   this document:
+
+   Serge Mister (Entrust).
+
+   We are grateful to all, including any contributors who may have been
+   inadvertently omitted from this list.
+
+   This document borrows text from similar documents, including those
+   referenced below.  Thanks go to the authors of those documents.
+   "Copying always makes things easier and less error prone" -
+   [RFC8411].
+
+6.1.  Making contributions
+
+   Additional contributions to this draft are welcome.  Please see the
+   working copy of this draft at, as well as open issues at:
+
+   https://github.com/EntrustCorporation/draft-ounsworth-pq-external-
+   keys
+
+7.  Normative References
+
+   [RFC4648]  Josefsson, S., "The Base16, Base32, and Base64 Data
+              Encodings", RFC 4648, DOI 10.17487/RFC4648, October 2006,
+              <https://www.rfc-editor.org/rfc/rfc4648>.
+
+   [RFC5280]  Cooper, D., Santesson, S., Farrell, S., Boeyen, S.,
+              Housley, R., and W. Polk, "Internet X.509 Public Key
+              Infrastructure Certificate and Certificate Revocation List
+              (CRL) Profile", RFC 5280, DOI 10.17487/RFC5280, May 2008,
+              <https://www.rfc-editor.org/rfc/rfc5280>.
+
+   [RFC8411]  Schaad, J. and R. Andrews, "IANA Registration for the
+              Cryptographic Algorithm Object Identifier Range",
+              RFC 8411, DOI 10.17487/RFC8411, August 2018,
+              <https://www.rfc-editor.org/rfc/rfc8411>.
+
+Authors' Addresses
+
+   Mike Ounsworth
+   Entrust Limited
+   1000 Innovation Drive
+   Ottawa, Ontario  K2K 1E3
+   Canada
+   Email: mike.ounsworth@entrust.com
+
+
+   Markku-Juhani O. Saarinen
+   PQShield
+   Email: mjos@pqshield.com
+
+
+   J. Gray
+   Entrust
+   Email: john.gray@entrust.com
+
+
+   D. Hook
+   KeyFactor
+   Email: david.hook@keyfactor.com
