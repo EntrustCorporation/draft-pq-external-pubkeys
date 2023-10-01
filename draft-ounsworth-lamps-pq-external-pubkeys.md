@@ -103,20 +103,20 @@ ExternalValue ::= SEQUENCE {
 
 Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per [RFC4648] if necessary) MUST be verified using hashAlg to match the `ExternalPublicKey.hash` value.
 
-`GeneralNames` is defined in [!RFC5280] as 
+`GeneralNames` is defined in [!RFC5280] as
 
 ~~~
 GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
 ~~~
 
 which we use instead of `GeneralName` so that certificate issuers can
-specify multiple backup key servers for high availability or specify key 
+specify multiple backup key servers for high availability or specify key
 identifiers in multiple formats if the corresponding public keys will
-be distributed in multiple keystore formats. When multiple key locations 
+be distributed in multiple keystore formats. When multiple key locations
 are specified, they MUST represent alternative locations for retrieval of the
 same key and MUST NOT be used as a mechanism to place multiple subject
-keys into a single certificate. Thus, when multiple key locations 
-are specified, the client MAY try them in any order and stop when it 
+keys into a single certificate. Thus, when multiple key locations
+are specified, the client MAY try them in any order and stop when it
 successfully retrieves a public key whose hash matches `hashVal`.
 
 
