@@ -193,12 +193,13 @@ For illustrative purposes, the `SubjectPublicKeyInfo` within the end entity cert
 subjectPublicKeyInfo SubjectPublicKeyInfo SEQUENCE (2 elem)
       algorithm AlgorithmIdentifier SEQUENCE (1 elem)
         algorithm OBJECT IDENTIFIER 1.3.6.1.4.1.22554.4.2 ExternalValue
-      subjectPublicKey BIT STRING (688 bit)
+      subjectPublicKey BIT STRING (704 bit)
         SEQUENCE (3 elem)
-          [6] (35 byte) file://local_keyserver/surveyors.db
+          SEQUENCE (1 elem)
+            [6] (35 byte) file://local_keyserver/surveyors.db
           SEQUENCE (1 elem)
             OBJECT IDENTIFIER 2.16.840.1.101.3.4.2.1 sha-256
-          OCTET STRING (32 byte) E73D4BC89752FD359...
+          OCTET STRING (32 byte) D0AD4FE39E9690C08E4...
 ~~~
 
 The external public key object referenced by the end entity certificate is:
@@ -213,7 +214,7 @@ For illustrative purposes, the key data, which is itself a `SubjectPublicKeyInfo
 SEQUENCE (2 elem)
   SEQUENCE (1 elem)
     OBJECT IDENTIFIER 1.3.6.1.4.1.22554.5.6.3 Kyber1024
-  BIT STRING (12544 bit) 01101111…
+  BIT STRING (12544 bit) 001111000100000101000
 ~~~
 
 The following trust anchor certificate can be used to validate the above end entity certificate.
