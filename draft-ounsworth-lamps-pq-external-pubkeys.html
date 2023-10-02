@@ -1032,11 +1032,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">External X.509 Keys</td>
-<td class="right">September 2023</td>
+<td class="right">October 2023</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 2 April 2024</td>
+<td class="center">Expires 4 April 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href='https://www.rfc-editor.org/rfc/rfc{"RFC5280"=&gt;nil}' class="eref">{"RFC5280"=&gt;nil}</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-09-30" class="published">30 September 2023</time>
+<time datetime="2023-10-02" class="published">2 October 2023</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-02">2 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-04-04">4 April 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 2 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1233,13 +1233,28 @@ id-external-value OBJECT IDENTIFIER  ::=  { iso(1)
 <div class="alignLeft art-text artwork" id="section-2-5">
 <pre>
 ExternalValue ::= SEQUENCE {
-  location     GeneralName,
+  location     GeneralNames,
   hashAlg      AlgorithmIdentifier,
   hashVal      OCTET STRING
 }
 </pre><a href="#section-2-5" class="pilcrow">¶</a>
 </div>
 <p id="section-2-6">Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per <span>[<a href="#RFC4648" class="cite xref">RFC4648</a>]</span> if necessary) MUST be verified using hashAlg to match the <code>ExternalPublicKey.hash</code> value.<a href="#section-2-6" class="pilcrow">¶</a></p>
+<p id="section-2-7"><code>GeneralNames</code> is defined in [!RFC5280] as<a href="#section-2-7" class="pilcrow">¶</a></p>
+<div class="alignLeft art-text artwork" id="section-2-8">
+<pre>
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+</pre><a href="#section-2-8" class="pilcrow">¶</a>
+</div>
+<p id="section-2-9">which we use instead of <code>GeneralName</code> so that certificate issuers can
+specify multiple backup key servers for high availability or specify key
+identifiers in multiple formats if the corresponding public keys will
+be distributed in multiple keystore formats. When multiple key locations
+are specified, they MUST represent alternative locations for retrieval of the
+same key and MUST NOT be used as a mechanism to place multiple subject
+keys into a single certificate. Thus, when multiple key locations
+are specified, the client MAY try them in any order and stop when it
+successfully retrieves a public key whose hash matches <code>hashVal</code>.<a href="#section-2-9" class="pilcrow">¶</a></p>
 <div id="external-public-key">
 <section id="section-2.1">
         <h3 id="name-external-public-key">
@@ -1334,7 +1349,7 @@ EXPORTS ALL;
 
 IMPORTS
 
-  GeneralName
+  GeneralNames
   FROM PKIX1Implicit-2009
       {iso(1) identified-organization(3) dod(6) internet(1) security(5)
       mechanisms(5) pkix(7) id-mod(0) id-mod-pkix1-implicit-02(59)}
@@ -1353,7 +1368,7 @@ id-external-value OBJECT IDENTIFIER  ::=  { iso(1)
             TBDOID }
 
 ExternalValue ::= SEQUENCE {
-  location     GeneralName,
+  location     GeneralNames,
   hashAlg      AlgorithmIdentifier,
   hashVal      OCTET STRING
 }
@@ -1374,14 +1389,14 @@ END
 <div class="alignLeft art-text artwork" id="section-5.2-4">
 <pre>
 -----BEGIN CERTIFICATE-----
-MIIBajCCAQ+gAwIBAgIGAYrnq6R7MAoGCCqGSM49BAMCMDoxDjAMBgNVBAMMBVFT
+MIIBbDCCARGgAwIBAgIGAYro4QFGMAoGCCqGSM49BAMCMDoxDjAMBgNVBAMMBVFT
 IENBMRswGQYDVQQKDBJRdWFudGl0eSBTdXJ2ZXlvcnMxCzAJBgNVBAYTAlhYMB4X
-DTIzMDkzMDE5NTgyMFoXDTI0MDEwODE5NTgyMFowHTEbMBkGA1UEAwwSRXRoZWwg
-dGhlIEFhcmR2YXJrMGcwDAYKKwYBBAGBsBoEAgNXADBUhiNmaWxlOi8vbG9jYWxf
-a2V5c2VydmVyL3N1cnZleW9ycy5kYjALBglghkgBZQMEAgEEIOc9S8iXUv01kSjc
-XaG0mpL5O0a5GOOOckd6m84UK/VToxAwDjAMBgNVHRMBAf8EAjAAMAoGCCqGSM49
-BAMCA0kAMEYCIQCsdcyyIrcGy3Ro4WyOYhAHoxSXFO0Ptgfm9FaXAqno9wIhAJLy
-vNED2FxrxJCu5y+4EZyFIA2cZ2IU40FILxaB3Y72
+DTIzMTAwMTAxMzYxNFoXDTI0MDEwOTAxMzYxNFowHTEbMBkGA1UEAwwSRXRoZWwg
+dGhlIEFhcmR2YXJrMGkwDAYKKwYBBAGBsBoEAgNZADBWMCWGI2ZpbGU6Ly9sb2Nh
+bF9rZXlzZXJ2ZXIvc3VydmV5b3JzLmRiMAsGCWCGSAFlAwQCAQQg0K1P456WkMCO
+RxsGOm271ynblXxFCgkTDI78by/RRJCjEDAOMAwGA1UdEwEB/wQCMAAwCgYIKoZI
+zj0EAwIDSQAwRgIhANqC6ZVDVrgaFFPxJcnhJO6kRGU9dHv5vRDcf2paXxSfAiEA
+2s/xoctsB1oCisbjK9HCUw/rzXoVKhkt1ZEXuapJYCk=
 -----END CERTIFICATE-----
 </pre><a href="#section-5.2-4" class="pilcrow">¶</a>
 </div>
@@ -1391,52 +1406,53 @@ vNED2FxrxJCu5y+4EZyFIA2cZ2IU40FILxaB3Y72
 subjectPublicKeyInfo SubjectPublicKeyInfo SEQUENCE (2 elem)
       algorithm AlgorithmIdentifier SEQUENCE (1 elem)
         algorithm OBJECT IDENTIFIER 1.3.6.1.4.1.22554.4.2 ExternalValue
-      subjectPublicKey BIT STRING (688 bit)
+      subjectPublicKey BIT STRING (704 bit)
         SEQUENCE (3 elem)
-          [6] (35 byte) file://local_keyserver/surveyors.db
+          SEQUENCE (1 elem)
+            [6] (35 byte) file://local_keyserver/surveyors.db
           SEQUENCE (1 elem)
             OBJECT IDENTIFIER 2.16.840.1.101.3.4.2.1 sha-256
-          OCTET STRING (32 byte) E73D4BC89752FD359...
+          OCTET STRING (32 byte) D0AD4FE39E9690C08E4...
 </pre><a href="#section-5.2-6" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-7">The external public key object referenced by the end entity certificate is:<a href="#section-5.2-7" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-8">
 <pre>
 -----BEGIN PUBLIC KEY-----
-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
-S5EjF9K6/ZQ=
+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
+JHIT3nFqKNQ=
 -----END PUBLIC KEY-----
 </pre><a href="#section-5.2-8" class="pilcrow">¶</a>
 </div>
@@ -1446,22 +1462,22 @@ S5EjF9K6/ZQ=
 SEQUENCE (2 elem)
   SEQUENCE (1 elem)
     OBJECT IDENTIFIER 1.3.6.1.4.1.22554.5.6.3 Kyber1024
-  BIT STRING (12544 bit) 01101111...
+  BIT STRING (12544 bit) 001111000100000101000
 </pre><a href="#section-5.2-10" class="pilcrow">¶</a>
 </div>
 <p id="section-5.2-11">The following trust anchor certificate can be used to validate the above end entity certificate.<a href="#section-5.2-11" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-5.2-12">
 <pre>
 -----BEGIN CERTIFICATE-----
-MIIBfzCCASSgAwIBAgIGAYrnq6N3MAoGCCqGSM49BAMCMDoxDjAMBgNVBAMMBVFT
+MIIBfTCCASSgAwIBAgIGAYro4QBFMAoGCCqGSM49BAMCMDoxDjAMBgNVBAMMBVFT
 IENBMRswGQYDVQQKDBJRdWFudGl0eSBTdXJ2ZXlvcnMxCzAJBgNVBAYTAlhYMB4X
-DTIzMDkzMDE5NTgyMFoXDTI0MDEwODE5NTgyMFowOjEOMAwGA1UEAwwFUVMgQ0Ex
+DTIzMTAwMTAxMzYxNFoXDTI0MDEwOTAxMzYxNFowOjEOMAwGA1UEAwwFUVMgQ0Ex
 GzAZBgNVBAoMElF1YW50aXR5IFN1cnZleW9yczELMAkGA1UEBhMCWFgwWTATBgcq
-hkjOPQIBBggqhkjOPQMBBwNCAARWnuLUvnLty9QwvqwuksCYe9LMASE7PmJ47S6w
-ob28VOZKDYaRu6Kx8Yj5cA/g/FaxrwX6FDN2S0NJsva5wmfMoxYwFDASBgNVHRMB
-Af8ECDAGAQH/AgEAMAoGCCqGSM49BAMCA0kAMEYCIQDZsojipbuEYL8wzY3MqceN
-uvs15XZtKdihrBt/B+blfgIhAJemmt2HY33zD9XRvtbLE4Rg/vLsuB3Oo+TUWlWS
-g+g6
+hkjOPQIBBggqhkjOPQMBBwNCAASZNnsQba2aDhAfhCTE670YBBvGfo7cU69VR2I+
+NQt321Feh+Au0/S+RobWtyx6JnFnAb/Y00YhQdA1liz0i4lFoxYwFDASBgNVHRMB
+Af8ECDAGAQH/AgEAMAoGCCqGSM49BAMCA0cAMEQCIHV0TdjJm9vCn3k93xhTXMQ0
+D8tQuzXJtFXNGtKk8OQQAiBn8yKLzreor7QrdGUHCH7g0kaDcyI4xXn95aPjgi/V
+NA==
 -----END CERTIFICATE-----
 </pre><a href="#section-5.2-12" class="pilcrow">¶</a>
 </div>
