@@ -95,14 +95,31 @@ The corresponding subjectPublicKey is the DER encoding of the following structur
 
 ~~~
 ExternalValue ::= SEQUENCE {
-  location     GeneralName,
+  location     GeneralNames,
   hashAlg      AlgorithmIdentifier,
   hashVal      OCTET STRING
 }
 ~~~
 
-
 Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per [RFC4648] if necessary) MUST be verified using hashAlg to match the `ExternalPublicKey.hash` value.
+
+`GeneralNames` is defined in [!RFC5280] as
+
+~~~
+GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
+~~~
+
+which we use instead of `GeneralName` so that certificate issuers can
+specify multiple backup key servers for high availability or specify key
+identifiers in multiple formats if the corresponding public keys will
+be distributed in multiple keystore formats. When multiple key locations
+are specified, they MUST represent alternative locations for retrieval of the
+same key and MUST NOT be used as a mechanism to place multiple subject
+keys into a single certificate. Thus, when multiple key locations
+are specified, the client MAY try them in any order and stop when it
+successfully retrieves a public key whose hash matches `hashVal`.
+
+
 
 ## External Public Key
 
@@ -176,12 +193,13 @@ For illustrative purposes, the `SubjectPublicKeyInfo` within the end entity cert
 subjectPublicKeyInfo SubjectPublicKeyInfo SEQUENCE (2 elem)
       algorithm AlgorithmIdentifier SEQUENCE (1 elem)
         algorithm OBJECT IDENTIFIER 1.3.6.1.4.1.22554.4.2 ExternalValue
-      subjectPublicKey BIT STRING (688 bit)
+      subjectPublicKey BIT STRING (704 bit)
         SEQUENCE (3 elem)
-          [6] (35 byte) file://local_keyserver/surveyors.db
+          SEQUENCE (1 elem)
+            [6] (35 byte) file://local_keyserver/surveyors.db
           SEQUENCE (1 elem)
             OBJECT IDENTIFIER 2.16.840.1.101.3.4.2.1 sha-256
-          OCTET STRING (32 byte) E73D4BC89752FD359...
+          OCTET STRING (32 byte) D0AD4FE39E9690C08E4...
 ~~~
 
 The external public key object referenced by the end entity certificate is:
@@ -196,7 +214,7 @@ For illustrative purposes, the key data, which is itself a `SubjectPublicKeyInfo
 SEQUENCE (2 elem)
   SEQUENCE (1 elem)
     OBJECT IDENTIFIER 1.3.6.1.4.1.22554.5.6.3 Kyber1024
-  BIT STRING (12544 bit) 01101111…
+  BIT STRING (12544 bit) 001111000100000101000
 ~~~
 
 The following trust anchor certificate can be used to validate the above end entity certificate.
