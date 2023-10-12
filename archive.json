@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-10T00:08:14.537655+00:00",
+  "timestamp": "2023-10-12T00:07:27.277450+00:00",
   "repo": "EntrustCorporation/draft-pq-external-pubkeys",
   "labels": [
     {
@@ -49,7 +49,24 @@
       "color": "ffffff"
     }
   ],
-  "issues": [],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOKaWZLs5zj1Yu",
+      "title": "Mention user fingerprinting security considerations",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/2",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> When considering caching large public keys for TLS (or other protocols), please make sure the security considerations section carefully considers whether the proposed mechanism leaks information about whether the client has previously contacted the server and possibly how recently, etc.  \r\n\r\n> -Tim Hollebeek\r\n\r\n\r\n\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/tls/DQSFbz2MHvyLnxC9OzR7GTJ8n94/",
+      "createdAt": "2023-10-11T21:30:11Z",
+      "updatedAt": "2023-10-11T21:30:11Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
   "pulls": [
     {
       "number": 1,
