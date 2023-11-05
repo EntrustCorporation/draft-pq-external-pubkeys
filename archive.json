@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-10-12T00:07:27.277450+00:00",
+  "timestamp": "2023-11-05T00:09:09.829251+00:00",
   "repo": "EntrustCorporation/draft-pq-external-pubkeys",
   "labels": [
     {
@@ -63,6 +63,46 @@
       "body": "> When considering caching large public keys for TLS (or other protocols), please make sure the security considerations section carefully considers whether the proposed mechanism leaks information about whether the client has previously contacted the server and possibly how recently, etc.  \r\n\r\n> -Tim Hollebeek\r\n\r\n\r\n\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/tls/DQSFbz2MHvyLnxC9OzR7GTJ8n94/",
       "createdAt": "2023-10-11T21:30:11Z",
       "updatedAt": "2023-10-11T21:30:11Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOKaWZLs512szS",
+      "title": "We should specify the encoding of the hashed public key",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/3",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently our draft leaves unspecified what the format is of the hashed public key.\r\n\r\nAs an example to follow, we should probably clone Russ' Hash Of Root Key RFC 8649 which specifies it as \"Hash of DER-encoded SubjectPublicKeyInfo\". \r\n\r\nWe should do the same.\r\n\r\nhttps://datatracker.ietf.org/doc/html/rfc8649#section-3\r\n\r\n```\r\n   HashedRootKey ::= SEQUENCE {\r\n      hashAlg        HashAlgorithm,        -- Hash algorithm used\r\n      hashValue      OCTET STRING }        -- Hash of DER-encoded\r\n                                           --   SubjectPublicKeyInfo\r\n```",
+      "createdAt": "2023-11-04T10:33:47Z",
+      "updatedAt": "2023-11-04T11:18:47Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "CBonnell",
+          "authorAssociation": "NONE",
+          "body": "Turns out that Section 2.1 says:\r\n\"When ExternalValue is placed into a SubjectPublicKeyInfo.subjectPublicKey, the ExternalValue.location MUST refer to a DER-encoded SubjectPublicKeyInfo, which MAY be base64 encoded as per [[RFC4648](https://www.ietf.org/archive/id/draft-ounsworth-lamps-pq-external-pubkeys-02.html#RFC4648)] for easier transport over text protocols.\"\r\n\r\nSo DER encoding is already specified. However, I'm unsure how base64 encoding is signaled. It might be best to leave that to the transport protocol (HTTP, etc.).",
+          "createdAt": "2023-11-04T11:18:47Z",
+          "updatedAt": "2023-11-04T11:18:47Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOKaWZLs512tDA",
+      "title": "We should specify which URI schemes are allowed",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/4",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Following the examples in 5280, we should say something like:\r\n\r\n>    Conforming implementations MUST recognize and perform scheme-based\r\n   normalization for the following schemes: ldap, http, https, and ftp.",
+      "createdAt": "2023-11-04T10:37:03Z",
+      "updatedAt": "2023-11-04T10:37:03Z",
       "closedAt": null,
       "comments": []
     }
