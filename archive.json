@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2023-11-16T00:08:38.347416+00:00",
+  "timestamp": "2023-11-19T00:09:23.040918+00:00",
   "repo": "EntrustCorporation/draft-pq-external-pubkeys",
   "labels": [
     {
@@ -120,6 +120,38 @@
           "updatedAt": "2023-11-05T00:53:49Z"
         }
       ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOKaWZLs53PWeS",
+      "title": "Should the subject pubkey's algID be included in the certificate?",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/5",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is a design choice; not clear which is the right answer.\r\n\r\nIf we are going to do it, then the right way is probably to have an optional AlgorithmIdentifier as a param of id-external-value.\r\n\r\n\r\nOn the LAMPS mailing list, David vO said that this is not necessary:\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/bxw3QdsdMQBBYaeg8sNjnT6SLcA/\r\n\r\nI think the argument is that it's hard to imagine under what circumstances you would need to know the algorithm of the key without needing to fetch the actual key.",
+      "createdAt": "2023-11-18T17:41:14Z",
+      "updatedAt": "2023-11-18T17:41:14Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOKaWZLs53PWt4",
+      "title": "Be explicit about rejection of malformatted public key data",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/6",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "David Hook:\r\n> I think Section 2.1 should also say the recipient of the encoded data should reject any encoding which is not valid DER. For something like this that just means checking that primitive length encoding has been used and the pad bits in the BIT STRING are zero - neither of these checks are onerous to implement, but they will mean someone can't present something which has been based on what can get through the ASN.1 parser, rather than what's actually expected.\r\n\r\n> The following might be a useful reference on that one:\r\n\r\n> [https://dl.gi.de/server/api/core/bitstreams/3161b2cb-ef5a-44f3-b319-66953bceeaf1/content](https://urldefense.com/v3/__https:/dl.gi.de/server/api/core/bitstreams/3161b2cb-ef5a-44f3-b319-66953bceeaf1/content__;!!FJ-Y8qCqXTj2!bqifS8ze93XdR3mHFtBHCYR-aFC34Fdb_HQlX2IeS5eU92clijmfAvS_LIvf0ow42CP7W0E6QP97apLYjr_yjR9U3IA$)\r\n\r\n> The full reference is\r\n\"M. Gebhardt, G. Illies, and W. Schindler. A note on the practical value of single hash collisions for special file formats. In Sicherheit 2006, Sicherheit \u2013 Schutz und Zuverl\u00e4ssigkeit, pages 333\u2013344. Gesellschaft f\u00fcr Informatik e.V., 2006.\"",
+      "createdAt": "2023-11-18T17:44:00Z",
+      "updatedAt": "2023-11-18T17:44:00Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
