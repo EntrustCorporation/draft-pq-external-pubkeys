@@ -16,24 +16,24 @@
 
 
     " name="description">
-<meta content="xml2rfc 3.18.0" name="generator">
+<meta content="xml2rfc 3.20.1" name="generator">
 <meta content="Internet-Draft" name="keyword">
 <meta content="draft-ounsworth-lamps-pq-external-pubkeys-latest" name="ietf.draft">
 <!-- Generator version information:
-  xml2rfc 3.18.0
-    Python 3.11.5
-    ConfigArgParse 1.5.3
+  xml2rfc 3.20.1
+    Python 3.11.8
+    ConfigArgParse 1.7
     google-i18n-address 3.1.0
     intervaltree 3.1.0
     Jinja2 3.1.2
     lxml 4.9.3
-    platformdirs 3.10.0
+    platformdirs 4.2.0
     pycountry 22.3.5
-    PyYAML 6.0
+    PyYAML 6.0.1
     requests 2.31.0
-    setuptools 67.7.2
+    setuptools 68.2.2
     six 1.16.0
-    wcwidth 0.2.6
+    wcwidth 0.2.13
 -->
 <link href="draft-ounsworth-lamps-pq-external-pubkeys.xml" rel="alternate" type="application/rfc+xml">
 <link href="#copyright" rel="license">
@@ -1032,11 +1032,11 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <thead><tr>
 <td class="left">Internet-Draft</td>
 <td class="center">External X.509 Keys</td>
-<td class="right">October 2023</td>
+<td class="right">April 2024</td>
 </tr></thead>
 <tfoot><tr>
 <td class="left">Ounsworth, et al.</td>
-<td class="center">Expires 4 April 2024</td>
+<td class="center">Expires 4 October 2024</td>
 <td class="right">[Page]</td>
 </tr></tfoot>
 </table>
@@ -1052,12 +1052,12 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href='https://www.rfc-editor.org/rfc/rfc{"RFC5280"=&gt;nil}' class="eref">{"RFC5280"=&gt;nil}</a> (if approved)</dd>
 <dt class="label-published">Published:</dt>
 <dd class="published">
-<time datetime="2023-10-02" class="published">2 October 2023</time>
+<time datetime="2024-04-02" class="published">2 April 2024</time>
     </dd>
 <dt class="label-intended-status">Intended Status:</dt>
 <dd class="intended-status">Standards Track</dd>
 <dt class="label-expires">Expires:</dt>
-<dd class="expires"><time datetime="2024-04-04">4 April 2024</time></dd>
+<dd class="expires"><time datetime="2024-10-04">4 October 2024</time></dd>
 <dt class="label-authors">Authors:</dt>
 <dd class="authors">
 <div class="author">
@@ -1114,7 +1114,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
         time. It is inappropriate to use Internet-Drafts as reference
         material or to cite them other than as "work in progress."<a href="#section-boilerplate.1-3" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.1-4">
-        This Internet-Draft will expire on 4 April 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
+        This Internet-Draft will expire on 4 October 2024.<a href="#section-boilerplate.1-4" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="copyright">
@@ -1123,7 +1123,7 @@ svg :is([fill="white"], [fill^="#fff"]) {
 <a href="#name-copyright-notice" class="section-name selfRef">Copyright Notice</a>
         </h2>
 <p id="section-boilerplate.2-1">
-            Copyright (c) 2023 IETF Trust and the persons identified as the
+            Copyright (c) 2024 IETF Trust and the persons identified as the
             document authors. All rights reserved.<a href="#section-boilerplate.2-1" class="pilcrow">¶</a></p>
 <p id="section-boilerplate.2-2">
             This document is subject to BCP 78 and the IETF Trust's Legal
@@ -1240,7 +1240,7 @@ ExternalValue ::= SEQUENCE {
 </pre><a href="#section-2-5" class="pilcrow">¶</a>
 </div>
 <p id="section-2-6">Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per <span>[<a href="#RFC4648" class="cite xref">RFC4648</a>]</span> if necessary) MUST be verified using hashAlg to match the <code>ExternalPublicKey.hash</code> value.<a href="#section-2-6" class="pilcrow">¶</a></p>
-<p id="section-2-7"><code>GeneralNames</code> is defined in [!RFC5280] as<a href="#section-2-7" class="pilcrow">¶</a></p>
+<p id="section-2-7"><code>GeneralNames</code> is defined in <span>[<a href="#RFC5280" class="cite xref">RFC5280</a>]</span> as<a href="#section-2-7" class="pilcrow">¶</a></p>
 <div class="alignLeft art-text artwork" id="section-2-8">
 <pre>
 GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
@@ -1278,11 +1278,14 @@ successfully retrieves a public key whose hash matches <code>hashVal</code>.<a h
 <a href="#section-3.1" class="section-number selfRef">3.1. </a><a href="#name-module-registration-smi-sec" class="section-name selfRef">Module Registration - SMI Security for PKIX Module Identifier</a>
         </h3>
 <ul class="normal">
-<li class="normal" id="section-3.1-1.1">Decimal: IANA Assigned - <strong>Replace TBDMOD</strong><a href="#section-3.1-1.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.1-1.1">
+            <p id="section-3.1-1.1.1">Decimal: IANA Assigned - <strong>Replace TBDMOD</strong><a href="#section-3.1-1.1.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-1.2">Description: EXTERNAL-PUBKEY-2023 - id-mod-external-pubkey<a href="#section-3.1-1.2" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.1-1.2">
+            <p id="section-3.1-1.2.1">Description: EXTERNAL-PUBKEY-2023 - id-mod-external-pubkey<a href="#section-3.1-1.2.1" class="pilcrow">¶</a></p>
 </li>
-          <li class="normal" id="section-3.1-1.3">References: This Document<a href="#section-3.1-1.3" class="pilcrow">¶</a>
+          <li class="normal" id="section-3.1-1.3">
+            <p id="section-3.1-1.3.1">References: This Document<a href="#section-3.1-1.3.1" class="pilcrow">¶</a></p>
 </li>
         </ul>
 <div id="object-identifier-registrations-smi-security-for-pkix-algorithms">
@@ -1294,11 +1297,14 @@ successfully retrieves a public key whose hash matches <code>hashVal</code>.<a h
 <li class="normal" id="section-3.1.1-1.1">
               <p id="section-3.1.1-1.1.1">Attest Statement<a href="#section-3.1.1-1.1.1" class="pilcrow">¶</a></p>
 <ul class="normal">
-<li class="normal" id="section-3.1.1-1.1.2.1">Decimal: IANA Assigned - Replace <strong>TBDOID</strong><a href="#section-3.1.1-1.1.2.1" class="pilcrow">¶</a>
+<li class="normal" id="section-3.1.1-1.1.2.1">
+                  <p id="section-3.1.1-1.1.2.1.1">Decimal: IANA Assigned - Replace <strong>TBDOID</strong><a href="#section-3.1.1-1.1.2.1.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-1.1.2.2">Description: id-external-value<a href="#section-3.1.1-1.1.2.2" class="pilcrow">¶</a>
+                <li class="normal" id="section-3.1.1-1.1.2.2">
+                  <p id="section-3.1.1-1.1.2.2.1">Description: id-external-value<a href="#section-3.1.1-1.1.2.2.1" class="pilcrow">¶</a></p>
 </li>
-                <li class="normal" id="section-3.1.1-1.1.2.3">References: This Document<a href="#section-3.1.1-1.1.2.3" class="pilcrow">¶</a>
+                <li class="normal" id="section-3.1.1-1.1.2.3">
+                  <p id="section-3.1.1-1.1.2.3.1">References: This Document<a href="#section-3.1.1-1.1.2.3.1" class="pilcrow">¶</a></p>
 </li>
               </ul>
 </li>
