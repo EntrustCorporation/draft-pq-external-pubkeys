@@ -103,7 +103,7 @@ ExternalValue ::= SEQUENCE {
 
 Upon retrieval of the referenced data, the hash of the OCTET STRING of the retrieved data (removing base64 encoding as per [RFC4648] if necessary) MUST be verified using hashAlg to match the `ExternalPublicKey.hash` value.
 
-`GeneralNames` is defined in [!RFC5280] as
+`GeneralNames` is defined in [RFC5280] as
 
 ~~~
 GeneralNames ::= SEQUENCE SIZE (1..MAX) OF GeneralName
