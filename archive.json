@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-02T00:08:27.558378+00:00",
+  "timestamp": "2024-04-04T00:09:31.405004+00:00",
   "repo": "EntrustCorporation/draft-pq-external-pubkeys",
   "labels": [
     {
@@ -152,6 +152,22 @@
       "updatedAt": "2023-11-18T17:44:00Z",
       "closedAt": null,
       "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOKaWZLs6EYzlZ",
+      "title": "Use URI in place of GeneralNames",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/7",
+      "state": "OPEN",
+      "author": "johngray-dev",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From Russ during IETF:\r\n\r\nAuthors:\r\n\r\nWhy are you using GeneralNames?  Is there ever a case when it will be something other than a URI?  If not, then I prefer:\r\n\r\n   ExternalValue ::= SEQUENCE {\r\n     location     URIs,\r\n     hashAlg      AlgorithmIdentifier,\r\n     hashVal      OCTET STRING\r\n   }\r\n\r\n   URIs ::= SEQUENCE SIZE (1..MAX) OF IA5String\r\n\r\n\r\n\r\nAlso, I noticed a typo: [!RFC5280]\r\n\r\n",
+      "createdAt": "2024-04-02T17:50:37Z",
+      "updatedAt": "2024-04-02T17:51:02Z",
+      "closedAt": null,
+      "comments": []
     }
   ],
   "pulls": [
@@ -183,7 +199,7 @@
       "comments": [
         {
           "author": "johngray-dev",
-          "authorAssociation": "NONE",
+          "authorAssociation": "COLLABORATOR",
           "body": "I support the addition of GeneralNames into the ASN.1 of this keytype.   Thanks for adding the pull request!",
           "createdAt": "2023-10-02T14:31:35Z",
           "updatedAt": "2023-10-02T14:31:35Z"
