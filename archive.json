@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-04-25T00:08:36.937668+00:00",
+  "timestamp": "2024-04-28T00:10:10.236860+00:00",
   "repo": "EntrustCorporation/draft-pq-external-pubkeys",
   "labels": [
     {
@@ -166,6 +166,22 @@
       "body": "From Russ during IETF:\r\n\r\nAuthors:\r\n\r\nWhy are you using GeneralNames?  Is there ever a case when it will be something other than a URI?  If not, then I prefer:\r\n\r\n   ExternalValue ::= SEQUENCE {\r\n     location     URIs,\r\n     hashAlg      AlgorithmIdentifier,\r\n     hashVal      OCTET STRING\r\n   }\r\n\r\n   URIs ::= SEQUENCE SIZE (1..MAX) OF IA5String\r\n\r\n\r\n\r\nAlso, I noticed a typo: [!RFC5280]\r\n\r\n",
       "createdAt": "2024-04-02T17:50:37Z",
       "updatedAt": "2024-04-02T17:51:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOKaWZLs6G-rAL",
+      "title": "Carl Wallace's feedback",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/8",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This feedback came on the LAMPS list:\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/2lAqR2L-PN2JqorFMeCMVlC3Dik/\r\n\r\n\r\nBelow are a few comments following a review of draft-ounsworth-lamps-pq-external-pubkeys-03.\r\n\r\nThroughout\r\n- There are several references to ExternalPublicKey but this is not defined.\r\n\r\nAbstract\r\n- s/transitting/transmitting\r\n- The mechanism is more like Subject Information Access than Authority Information Access.\r\n\r\nSection 2\r\n- The first paragraph references externalizing signature values, but signatures are not mentioned again. Is the intent for this to be used to sustain externals keys and signatures or only keys? The draft seems to want to be focused on SPKI, so why not just limit to that?\r\n- Why use GeneralNames here instead of a URI or list of URIs? GeneralName pulls in lots of stuff that is not useful (i.e., ORAddress, EDIPartyName, etc.)\r\n\r\nSection 2.1\r\n- When would parameters ever be used with id-external-value? If never, just say MUST be absent. It may be worth adding some words re: parameters for the hashAlg field as well.\r\n- What structure should be expected when ExternalValue.location is used somewhere other than SubjectPublicKeyInfo.subjectPublicKey?\r\n\r\nSection 4\r\n- It may be worth adding a privacy consideration re: the need to fetch the public key when using a certificate since this is a change vs. conventional certificates.\r\n\r\nSection 5.2\r\n- The example would be more useful if the external location were publicly accessible. \r\n",
+      "createdAt": "2024-04-25T22:08:18Z",
+      "updatedAt": "2024-04-25T22:08:18Z",
       "closedAt": null,
       "comments": []
     }
