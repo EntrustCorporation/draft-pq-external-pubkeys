@@ -1,0 +1,227 @@
+{
+  "magic": "E!vIA5L86J2I",
+  "timestamp": "2024-07-02T00:09:27.938702+00:00",
+  "repo": "EntrustCorporation/draft-pq-external-pubkeys",
+  "labels": [
+    {
+      "name": "bug",
+      "description": "Something isn't working",
+      "color": "d73a4a"
+    },
+    {
+      "name": "documentation",
+      "description": "Improvements or additions to documentation",
+      "color": "0075ca"
+    },
+    {
+      "name": "duplicate",
+      "description": "This issue or pull request already exists",
+      "color": "cfd3d7"
+    },
+    {
+      "name": "enhancement",
+      "description": "New feature or request",
+      "color": "a2eeef"
+    },
+    {
+      "name": "good first issue",
+      "description": "Good for newcomers",
+      "color": "7057ff"
+    },
+    {
+      "name": "help wanted",
+      "description": "Extra attention is needed",
+      "color": "008672"
+    },
+    {
+      "name": "invalid",
+      "description": "This doesn't seem right",
+      "color": "e4e669"
+    },
+    {
+      "name": "question",
+      "description": "Further information is requested",
+      "color": "d876e3"
+    },
+    {
+      "name": "wontfix",
+      "description": "This will not be worked on",
+      "color": "ffffff"
+    }
+  ],
+  "issues": [
+    {
+      "number": 2,
+      "id": "I_kwDOKaWZLs5zj1Yu",
+      "title": "Mention user fingerprinting security considerations",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/2",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "> When considering caching large public keys for TLS (or other protocols), please make sure the security considerations section carefully considers whether the proposed mechanism leaks information about whether the client has previously contacted the server and possibly how recently, etc.  \r\n\r\n> -Tim Hollebeek\r\n\r\n\r\n\r\n\r\nhttps://mailarchive.ietf.org/arch/msg/tls/DQSFbz2MHvyLnxC9OzR7GTJ8n94/",
+      "createdAt": "2023-10-11T21:30:11Z",
+      "updatedAt": "2023-10-11T21:30:11Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 3,
+      "id": "I_kwDOKaWZLs512szS",
+      "title": "We should specify the encoding of the hashed public key",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/3",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Currently our draft leaves unspecified what the format is of the hashed public key.\r\n\r\nAs an example to follow, we should probably clone Russ' Hash Of Root Key RFC 8649 which specifies it as \"Hash of DER-encoded SubjectPublicKeyInfo\". \r\n\r\nWe should do the same.\r\n\r\nhttps://datatracker.ietf.org/doc/html/rfc8649#section-3\r\n\r\n```\r\n   HashedRootKey ::= SEQUENCE {\r\n      hashAlg        HashAlgorithm,        -- Hash algorithm used\r\n      hashValue      OCTET STRING }        -- Hash of DER-encoded\r\n                                           --   SubjectPublicKeyInfo\r\n```",
+      "createdAt": "2023-11-04T10:33:47Z",
+      "updatedAt": "2023-11-05T03:40:37Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "CBonnell",
+          "authorAssociation": "NONE",
+          "body": "Turns out that Section 2.1 says:\r\n\"When ExternalValue is placed into a SubjectPublicKeyInfo.subjectPublicKey, the ExternalValue.location MUST refer to a DER-encoded SubjectPublicKeyInfo, which MAY be base64 encoded as per [[RFC4648](https://www.ietf.org/archive/id/draft-ounsworth-lamps-pq-external-pubkeys-02.html#RFC4648)] for easier transport over text protocols.\"\r\n\r\nSo DER encoding is already specified. However, I'm unsure how base64 encoding is signaled. It might be best to leave that to the transport protocol (HTTP, etc.).",
+          "createdAt": "2023-11-04T11:18:47Z",
+          "updatedAt": "2023-11-04T11:18:47Z"
+        },
+        {
+          "author": "dghgit",
+          "authorAssociation": "NONE",
+          "body": "Yes, that's now we did it in BC.\r\n\r\nThat said, I'm in favor of making it as explicit as possible, even if it means repeating ourselves, it's easy to miss things when implementing these documents.\r\n\r\n```\r\n-----BEGIN CERTIFICATE-----\r\nMIIT2zCCAbACBgGLnYwBDzANBgsrBgEEAQKCCwwIBzCBjTELMAkGA1UEBhMCWFgx\r\nNTAzBgNVBAoMLFJveWFsIEluc3RpdHV0ZSBvZiBQdWJsaWMgS2V5IEluZnJhc3Ry\r\ndWN0dXJlMSswKQYDVQQLDCJQb3N0LUhlZmZhbHVtcCBSZXNlYXJjaCBEZXBhcnRt\r\nZW50MRowGAYDVQQDDBFFeHRlcm5hbCBLZXkgVGVzdDAeFw0yMzExMDUwMzM0MzVa\r\nFw0yODExMDMwMzM0NDBaMIGNMQswCQYDVQQGEwJYWDE1MDMGA1UECgwsUm95YWwg\r\nSW5zdGl0dXRlIG9mIFB1YmxpYyBLZXkgSW5mcmFzdHJ1Y3R1cmUxKzApBgNVBAsM\r\nIlBvc3QtSGVmZmFsdW1wIFJlc2VhcmNoIERlcGFydG1lbnQxGjAYBgNVBAMMEUV4\r\ndGVybmFsIEtleSBUZXN0MFcwDAYKKwYBBAGBsBoEAgNHADBEMBOGEWh0dHBzOi8v\r\nbG9jYWxob3N0MAsGCWCGSAFlAwQCAQQguaTL/dMMHOlt4GPmwaD0TzVep+xkrFz7\r\nRxP8zltoO4IwDQYLKwYBBAECggsMCAcDghIUALcvSO3H2urXhe9k3l/6cq6qFp6C\r\nx20QPwpgTNOBuB5bGKqQO7gtsRg7t4yAUhwea6MlPxHi9ah96NOazWx1fGGYMBGN\r\n064kYJbOLXDcqmnJtbv7Lp8SsiRN8OutXmI6i23k/VHFFBBtNSKTisyCw5VMoM7j\r\nNJd9peyy9+snleQcPjPhKh3cUhZDE0R3NqPmkk/eAto3lf1QMlRPFiWHe5NBac7I\r\nhJhrcm4H7Ept+yraBtjp2osLfnIeWhEHGcVrwg3AZMD4OhnQgTx9qPdz19H3Snny\r\nmZopZeL+oOdfWIJBi0mXw4AN9qcHRTkofBGDlHQ5SJRDM2VIOUuZjM+1CMSVzah/\r\nAuwQuGUFGfJr7RowBrz0yVx3/qJTVXEXrWqlaslGI4yPm+602kJ0/L2h/jwWrrOj\r\nYI97XPa/4Ztc8KlUyzcrorD1dnPxMNUeCB94rbAUz+leQqA99f+dtvCfh5sU88WA\r\n32LUfj+4kqZkLxnKJ41dYa6kGP0Ex6Ur9lw07cF7y+2FU5Yh5GjoXG6KgflvhOyH\r\n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\r\n-----END CERTIFICATE-----\r\n```\r\n\r\nHere's the PEM encoding of the public key that has been replaced with the ExternalPublicKey:\r\n```\r\n-----BEGIN PUBLIC KEY-----\r\n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\r\nrgG0iwCfj5vJC/1tmtTwFJsQBnuU48t0\r\n-----END PUBLIC KEY-----\r\n```\r\n\r\nThe external public key is currently recorded using an OID on the BC arc. Here's the SubjectPublicKeyInfo.\r\n\r\n```\r\nDER Sequence\r\n    DER Sequence\r\n        ObjectIdentifier(1.3.6.1.4.1.22554.4.2)\r\n    DER Bit String[70, 0] \r\n        30443013861168747470733a2f2f6c6f63616c686f7374300b06096086480165    0D0https://localhost0`He\r\n        030402010420b9a4cbfdd30c1ce96de063e6c1a0f44f355ea7ec64ac5cfb4713     mcO5^d\\G\r\n        fcce5b683b82                                                      !?\r\n```\r\n\r\nWith the public key data (using the BC ASN.1 tool) dumping out as:\r\n```\r\nSequence\r\n    Sequence\r\n        Tagged [CONTEXT 6] IMPLICIT \r\n            DER Octet String[17] \r\n    Sequence\r\n        ObjectIdentifier(2.16.840.1.101.3.4.2.1)\r\n    DER Octet String[32] \r\n```\r\nOr put another way, the external public key info is 89 bytes long, replacing a public key that encodes at 2616 bytes long (just over 50% the size of the existing certificate). Of course this is more impressive with Classic McEliece but then I'd probably exceed the comment limit if I tried posting something like that...",
+          "createdAt": "2023-11-05T00:17:42Z",
+          "updatedAt": "2023-11-05T03:40:37Z"
+        }
+      ]
+    },
+    {
+      "number": 4,
+      "id": "I_kwDOKaWZLs512tDA",
+      "title": "We should specify which URI schemes are allowed",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/4",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "Following the examples in 5280, we should say something like:\r\n\r\n>    Conforming implementations MUST recognize and perform scheme-based\r\n   normalization for the following schemes: ldap, http, https, and ftp.",
+      "createdAt": "2023-11-04T10:37:03Z",
+      "updatedAt": "2023-11-05T00:53:50Z",
+      "closedAt": null,
+      "comments": [
+        {
+          "author": "dghgit",
+          "authorAssociation": "NONE",
+          "body": "Hmmm, not so sure on this one, I'd only insist on http and https (I mean if the key is signed independently then http would be fine, but these days virtually everyone supports https), even then I'm tempted to just go with \"should\". I wouldn't burden people with LDAP as compulsory, since it seems to be falling out of favor, but I'd mention it and ftp as other protocols worth considering. \r\n\r\nGiven a system like this has to be used in conjunction with some sort of keyserver (be it anything from a couple of boxes elsewhere on the internet to a pre-loaded lookup table stored locally on a device) I'd expect there'll be a lot of boutique usage, but as RFCs are primarily about describing some way we can all work together and there's a level of comfort about exposing http/https to the broader Internet I'd guess it's worth pointing at http and https.",
+          "createdAt": "2023-11-05T00:53:49Z",
+          "updatedAt": "2023-11-05T00:53:49Z"
+        }
+      ]
+    },
+    {
+      "number": 5,
+      "id": "I_kwDOKaWZLs53PWeS",
+      "title": "Should the subject pubkey's algID be included in the certificate?",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/5",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This is a design choice; not clear which is the right answer.\r\n\r\nIf we are going to do it, then the right way is probably to have an optional AlgorithmIdentifier as a param of id-external-value.\r\n\r\n\r\nOn the LAMPS mailing list, David vO said that this is not necessary:\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/bxw3QdsdMQBBYaeg8sNjnT6SLcA/\r\n\r\nI think the argument is that it's hard to imagine under what circumstances you would need to know the algorithm of the key without needing to fetch the actual key.",
+      "createdAt": "2023-11-18T17:41:14Z",
+      "updatedAt": "2023-11-18T17:41:14Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 6,
+      "id": "I_kwDOKaWZLs53PWt4",
+      "title": "Be explicit about rejection of malformatted public key data",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/6",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "David Hook:\r\n> I think Section 2.1 should also say the recipient of the encoded data should reject any encoding which is not valid DER. For something like this that just means checking that primitive length encoding has been used and the pad bits in the BIT STRING are zero - neither of these checks are onerous to implement, but they will mean someone can't present something which has been based on what can get through the ASN.1 parser, rather than what's actually expected.\r\n\r\n> The following might be a useful reference on that one:\r\n\r\n> [https://dl.gi.de/server/api/core/bitstreams/3161b2cb-ef5a-44f3-b319-66953bceeaf1/content](https://urldefense.com/v3/__https:/dl.gi.de/server/api/core/bitstreams/3161b2cb-ef5a-44f3-b319-66953bceeaf1/content__;!!FJ-Y8qCqXTj2!bqifS8ze93XdR3mHFtBHCYR-aFC34Fdb_HQlX2IeS5eU92clijmfAvS_LIvf0ow42CP7W0E6QP97apLYjr_yjR9U3IA$)\r\n\r\n> The full reference is\r\n\"M. Gebhardt, G. Illies, and W. Schindler. A note on the practical value of single hash collisions for special file formats. In Sicherheit 2006, Sicherheit \u2013 Schutz und Zuverl\u00e4ssigkeit, pages 333\u2013344. Gesellschaft f\u00fcr Informatik e.V., 2006.\"",
+      "createdAt": "2023-11-18T17:44:00Z",
+      "updatedAt": "2023-11-18T17:44:00Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 7,
+      "id": "I_kwDOKaWZLs6EYzlZ",
+      "title": "Use URI in place of GeneralNames",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/7",
+      "state": "OPEN",
+      "author": "johngray-dev",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "From Russ during IETF:\r\n\r\nAuthors:\r\n\r\nWhy are you using GeneralNames?  Is there ever a case when it will be something other than a URI?  If not, then I prefer:\r\n\r\n   ExternalValue ::= SEQUENCE {\r\n     location     URIs,\r\n     hashAlg      AlgorithmIdentifier,\r\n     hashVal      OCTET STRING\r\n   }\r\n\r\n   URIs ::= SEQUENCE SIZE (1..MAX) OF IA5String\r\n\r\n\r\n\r\nAlso, I noticed a typo: [!RFC5280]\r\n\r\n",
+      "createdAt": "2024-04-02T17:50:37Z",
+      "updatedAt": "2024-04-02T17:51:02Z",
+      "closedAt": null,
+      "comments": []
+    },
+    {
+      "number": 8,
+      "id": "I_kwDOKaWZLs6G-rAL",
+      "title": "Carl Wallace's feedback",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/issues/8",
+      "state": "OPEN",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "This feedback came on the LAMPS list:\r\nhttps://mailarchive.ietf.org/arch/msg/spasm/2lAqR2L-PN2JqorFMeCMVlC3Dik/\r\n\r\n\r\nBelow are a few comments following a review of draft-ounsworth-lamps-pq-external-pubkeys-03.\r\n\r\nThroughout\r\n- There are several references to ExternalPublicKey but this is not defined.\r\n\r\nAbstract\r\n- s/transitting/transmitting\r\n- The mechanism is more like Subject Information Access than Authority Information Access.\r\n\r\nSection 2\r\n- The first paragraph references externalizing signature values, but signatures are not mentioned again. Is the intent for this to be used to sustain externals keys and signatures or only keys? The draft seems to want to be focused on SPKI, so why not just limit to that?\r\n- Why use GeneralNames here instead of a URI or list of URIs? GeneralName pulls in lots of stuff that is not useful (i.e., ORAddress, EDIPartyName, etc.)\r\n\r\nSection 2.1\r\n- When would parameters ever be used with id-external-value? If never, just say MUST be absent. It may be worth adding some words re: parameters for the hashAlg field as well.\r\n- What structure should be expected when ExternalValue.location is used somewhere other than SubjectPublicKeyInfo.subjectPublicKey?\r\n\r\nSection 4\r\n- It may be worth adding a privacy consideration re: the need to fetch the public key when using a certificate since this is a change vs. conventional certificates.\r\n\r\nSection 5.2\r\n- The example would be more useful if the external location were publicly accessible. \r\n",
+      "createdAt": "2024-04-25T22:08:18Z",
+      "updatedAt": "2024-04-25T22:08:18Z",
+      "closedAt": null,
+      "comments": []
+    }
+  ],
+  "pulls": [
+    {
+      "number": 1,
+      "id": "PR_kwDOKaWZLs5bmVum",
+      "title": "Wrote David's idea of GeneralNames instead of GeneralName",
+      "url": "https://github.com/EntrustCorporation/draft-pq-external-pubkeys/pull/1",
+      "state": "MERGED",
+      "author": "ounsworth",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2023-10-01T01:26:28Z",
+      "updatedAt": "2023-10-02T16:26:58Z",
+      "baseRepository": "EntrustCorporation/draft-pq-external-pubkeys",
+      "baseRefName": "main",
+      "baseRefOid": "8eb3377a79b5e9f2e8086cb8cab2a4897a8fc0f3",
+      "headRepository": "EntrustCorporation/draft-pq-external-pubkeys",
+      "headRefName": "GeneralNames",
+      "headRefOid": "322fa11e7c046a7b418f077c6682cbd7094f1b08",
+      "closedAt": "2023-10-02T16:05:52Z",
+      "mergedAt": "2023-10-02T16:05:52Z",
+      "mergedBy": "ounsworth",
+      "mergeCommit": {
+        "oid": "b3f205609a96a69b37d9d7c1c1536acc014c20f2"
+      },
+      "comments": [
+        {
+          "author": "johngray-dev",
+          "authorAssociation": "COLLABORATOR",
+          "body": "I support the addition of GeneralNames into the ASN.1 of this keytype.   Thanks for adding the pull request!",
+          "createdAt": "2023-10-02T14:31:35Z",
+          "updatedAt": "2023-10-02T14:31:35Z"
+        }
+      ],
+      "reviews": []
+    }
+  ]
+}
