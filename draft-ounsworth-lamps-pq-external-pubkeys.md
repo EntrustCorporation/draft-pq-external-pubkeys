@@ -3,7 +3,6 @@ title: External Keys For Use In Internet X.509 Certificates
 abbrev: External X.509 Keys
 docname: draft-ounsworth-lamps-pq-external-pubkeys-latest
 
-
 # <!-- stand_alone: true -->
 # area: Security
 wg: LAMPS
