@@ -6,11 +6,11 @@ LAMPS                                                       M. Ounsworth
 Internet-Draft                                                   Entrust
 Updates: {"RFC5280"=>nil} (if approved)                M.-J. O. Saarinen
 Intended status: Standards Track                                PQShield
-Expires: 4 October 2024                                          J. Gray
+Expires: 3 April 2025                                            J. Gray
                                                                  Entrust
                                                                  D. Hook
                                                                KeyFactor
-                                                            2 April 2024
+                                                       30 September 2024
 
 
           External Keys For Use In Internet X.509 Certificates
@@ -53,7 +53,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 4 October 2024.
+   This Internet-Draft will expire on 3 April 2025.
 
 Copyright Notice
 
