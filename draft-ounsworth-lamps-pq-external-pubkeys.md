@@ -22,7 +22,7 @@ venue:
   github: "EntrustCorporation/draft-pq-external-pubkeys"
   latest: "https://EntrustCorporation.github.io/draft-pq-external-pubkeys/draft-ounsworth-pq-external-pubkeys.html"
 
-coding: us-ascii
+coding: utf-8
 pi:    # can use array (if all yes) or hash here
   toc: yes
   sortrefs:   # defaults to yes
