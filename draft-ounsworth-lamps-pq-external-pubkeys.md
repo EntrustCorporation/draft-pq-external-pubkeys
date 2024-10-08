@@ -39,12 +39,6 @@ author:
       country: Canada
       code: K2K 1E3
       email: mike.ounsworth@entrust.com
-
-    -
-      name: Markku-Juhani O. Saarinen
-      org: PQShield
-      email: mjos@pqshield.com
-
     -
       fullname: J. Gray
       organization: Entrust
@@ -53,6 +47,11 @@ author:
       fullname: D. Hook
       organization: KeyFactor
       email: david.hook@keyfactor.com
+    -
+      name: Markku-Juhani O. Saarinen
+      org: Tampere University
+      country: Finland
+      email: markku-juhani.saarinen@tuni.fi
 
 normative:
   RFC4648:
