@@ -3,14 +3,13 @@
 
 
 LAMPS                                                       M. Ounsworth
-Internet-Draft                                                   Entrust
-Updates: {"RFC5280"=>nil} (if approved)                M.-J. O. Saarinen
-Intended status: Standards Track                                PQShield
-Expires: 3 April 2025                                            J. Gray
-                                                                 Entrust
-                                                                 D. Hook
-                                                               KeyFactor
-                                                       30 September 2024
+Internet-Draft                                                   J. Gray
+Updates: {"RFC5280"=>nil} (if approved)                          Entrust
+Intended status: Standards Track                                 D. Hook
+Expires: 11 April 2025                                         KeyFactor
+                                                       M.-J. O. Saarinen
+                                                      Tampere University
+                                                          8 October 2024
 
 
           External Keys For Use In Internet X.509 Certificates
@@ -53,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 3 April 2025.
+   This Internet-Draft will expire on 11 April 2025.
 
 Copyright Notice
 
@@ -402,11 +401,6 @@ Authors' Addresses
    Email: mike.ounsworth@entrust.com
 
 
-   Markku-Juhani O. Saarinen
-   PQShield
-   Email: mjos@pqshield.com
-
-
    J. Gray
    Entrust
    Email: john.gray@entrust.com
@@ -415,3 +409,9 @@ Authors' Addresses
    D. Hook
    KeyFactor
    Email: david.hook@keyfactor.com
+
+
+   Markku-Juhani O. Saarinen
+   Tampere University
+   Finland
+   Email: markku-juhani.saarinen@tuni.fi
